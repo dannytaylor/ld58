@@ -1,0 +1,151 @@
+[gd_scene load_steps=18 format=3 uid="uid://dt4nq0nkmjiit"]
+
+[ext_resource type="Shader" uid="uid://ba6fqx1chlx8b" path="res://shared/sky.gdshader" id="1_0xm2m"]
+[ext_resource type="Shader" uid="uid://d2kv76p80esdx" path="res://shared/blur.gdshader" id="1_1bvp3"]
+[ext_resource type="Script" uid="uid://b552oo764xrit" path="res://main.gd" id="1_272bh"]
+[ext_resource type="PackedScene" uid="uid://c8y6ehhiytuh1" path="res://level/level.tscn" id="2_h2yge"]
+[ext_resource type="Script" uid="uid://bkbl5av7cyjmq" path="res://level/clouds.gd" id="3_lquwl"]
+[ext_resource type="AudioStream" uid="uid://b2fnjcxm3jylu" path="res://sfx/nature-ambience-323729.ogg" id="6_7mycd"]
+[ext_resource type="FontFile" uid="uid://c33ccvkoxatm3" path="res://shared/honeyblot_caps.ttf" id="7_5vw27"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lquwl"]
+shader = ExtResource("1_1bvp3")
+shader_parameter/virtual_resolution = Vector2(320, 240)
+shader_parameter/color_bitdepth = 6
+shader_parameter/dither_strength = 0.0
+shader_parameter/use_magic_matrix = false
+shader_parameter/enable_dedithering = false
+shader_parameter/dedither_strength = 0.0
+shader_parameter/enable_480i_upscale = true
+shader_parameter/scanline_intensity = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_272bh"]
+shader = ExtResource("1_0xm2m")
+shader_parameter/background_dark = false
+
+[sub_resource type="Sky" id="Sky_5vw27"]
+sky_material = SubResource("ShaderMaterial_272bh")
+
+[sub_resource type="Environment" id="Environment_kek77"]
+background_mode = 2
+sky = SubResource("Sky_5vw27")
+ambient_light_source = 3
+ambient_light_sky_contribution = 0.4
+reflected_light_source = 2
+tonemap_mode = 3
+tonemap_exposure = 0.8
+glow_enabled = true
+glow_intensity = 0.7
+glow_bloom = 0.3
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.43199998, 0.75706667, 0.8, 1)
+fog_density = 1.0
+fog_depth_begin = 8.0
+fog_depth_end = 32.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_4c57u"]
+size = Vector2(256, 256)
+subdivide_width = 4
+subdivide_depth = 4
+
+[sub_resource type="Gradient" id="Gradient_efxa6"]
+offsets = PackedFloat32Array(0, 0.5084746)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_dg77c"]
+frequency = 0.04
+fractal_lacunarity = 3.3
+fractal_gain = 0.3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ycdy4"]
+noise = SubResource("FastNoiseLite_dg77c")
+color_ramp = SubResource("Gradient_efxa6")
+seamless = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w48qg"]
+transparency = 2
+alpha_scissor_threshold = 0.3
+alpha_antialiasing_mode = 0
+albedo_texture = SubResource("NoiseTexture2D_ycdy4")
+
+[sub_resource type="LabelSettings" id="LabelSettings_kek77"]
+font = ExtResource("7_5vw27")
+font_size = 28
+font_color = Color(0.92256, 0.93, 0.9114, 0.2509804)
+
+[node name="root" type="Node3D"]
+script = ExtResource("1_272bh")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+material = SubResource("ShaderMaterial_lquwl")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 2
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+msaa_2d = 1
+msaa_3d = 1
+canvas_item_default_texture_filter = 0
+audio_listener_enable_2d = true
+audio_listener_enable_3d = true
+size = Vector2i(460, 320)
+size_2d_override = Vector2i(920, 640)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="env" type="WorldEnvironment" parent="SubViewportContainer/SubViewport" groups=["env"]]
+environment = SubResource("Environment_kek77")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport/env"]
+transform = Transform3D(0.8423772, 0.48600742, -0.23280357, 0, 0.432007, 0.90187025, 0.5388884, -0.7597149, 0.36391285, 0, 0.33840364, 0)
+light_color = Color(0.91961014, 0.8171442, 0.56158894, 1)
+light_energy = 0.2
+light_specular = 2.0
+shadow_enabled = true
+shadow_opacity = 0.5
+shadow_blur = 2.0
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/env"]
+transform = Transform3D(1, 0, 0, 0, 0.84895325, 0.52846795, 0, -0.52846795, 0.84895325, 0, 0.7606337, 0)
+current = true
+
+[node name="clouds" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/env"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.579, 24.1, 0)
+mesh = SubResource("PlaneMesh_4c57u")
+surface_material_override/0 = SubResource("StandardMaterial3D_w48qg")
+script = ExtResource("3_lquwl")
+
+[node name="level" parent="SubViewportContainer/SubViewport" instance=ExtResource("2_h2yge")]
+
+[node name="spawnpoint" type="Node" parent="SubViewportContainer/SubViewport"]
+
+[node name="spawner" type="MultiplayerSpawner" parent="SubViewportContainer/SubViewport"]
+_spawnable_scenes = PackedStringArray("uid://bk2otpj8llnek")
+spawn_path = NodePath("../spawnpoint")
+
+[node name="network_debug" type="Label" parent="SubViewportContainer/SubViewport"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -365.0
+offset_top = -30.0
+offset_right = -12.0
+offset_bottom = -6.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "disconnected from rookery"
+label_settings = SubResource("LabelSettings_kek77")
+horizontal_alignment = 2
+
+[node name="ambience" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_7mycd")
+volume_db = 9.0
+autoplay = true

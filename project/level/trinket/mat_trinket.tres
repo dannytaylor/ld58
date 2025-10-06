@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://ln2l5comkdpa"]
+
+[ext_resource type="Texture2D" uid="uid://cvi5l47n3y66y" path="res://level/trinket/trinkets_octo80-8x.png" id="1_0tysp"]
+[ext_resource type="Material" uid="uid://c0q8u0eou283m" path="res://level/trinket/mat_highlight.tres" id="2_wy36v"]
+
+[resource]
+resource_name = "trinket"
+next_pass = ExtResource("2_wy36v")
+cull_mode = 2
+disable_fog = true
+albedo_texture = ExtResource("1_0tysp")
+metallic = 0.2
+metallic_specular = 0.6
+roughness = 0.2

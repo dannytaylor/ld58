@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=3 uid="uid://dka6u14s2euev"]
+
+[ext_resource type="Script" uid="uid://s6rsmq7qk6w0" path="res://level/depositor.gd" id="1_ciyll"]
+[ext_resource type="PackedScene" uid="uid://u1xb2y4fgwpr" path="res://level/depositor.glb" id="2_fun74"]
+[ext_resource type="Texture2D" uid="uid://daaio1w4lqb6w" path="res://shared/mouse_left_outline.png" id="3_h08kx"]
+[ext_resource type="AudioStream" uid="uid://b3cb4xex57oa6" path="res://sfx/coin1.ogg" id="4_h08kx"]
+[ext_resource type="AudioStream" uid="uid://ckagsoynn4o1l" path="res://sfx/coin2.ogg" id="5_05iol"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ciyll"]
+data = PackedVector3Array(-1.1922531, 0.8064394, 1.4290555, 1.226944, 0.8064394, -0.9901417, -1.1922531, 0.8064394, -0.9901417, -1.1922531, 0.8064394, 1.4290555, 1.226944, 0.8064394, 1.4290555, 1.226944, 0.8064394, -0.9901417, -1.1922531, 2.8694053, 1.4290555, 1.226944, 2.8694053, -0.9901417, 1.226944, 2.8694053, 1.4290555, -1.1922531, 2.8694053, 1.4290555, -1.1922531, 2.8694053, -0.9901417, 1.226944, 2.8694053, -0.9901417, 1.226944, 0.8064394, 1.4290555, 1.226944, 2.8694053, -0.9901417, 1.226944, 0.8064394, -0.9901417, 1.226944, 0.8064394, 1.4290555, 1.226944, 2.8694053, 1.4290555, 1.226944, 2.8694053, -0.9901417, -1.1922531, 0.8064394, -0.9901417, -1.1922531, 2.8694053, 1.4290555, -1.1922531, 0.8064394, 1.4290555, -1.1922531, 0.8064394, -0.9901417, -1.1922531, 2.8694053, -0.9901417, -1.1922531, 2.8694053, 1.4290555, 1.226944, 0.8064394, -0.9901417, -1.1922531, 2.8694053, -0.9901417, -1.1922531, 0.8064394, -0.9901417, 1.226944, 0.8064394, -0.9901417, 1.226944, 2.8694053, -0.9901417, -1.1922531, 2.8694053, -0.9901417, -1.1922531, 0.8064394, 1.4290555, 1.226944, 2.8694053, 1.4290555, 1.226944, 0.8064394, 1.4290555, -1.1922531, 0.8064394, 1.4290555, -1.1922531, 2.8694053, 1.4290555, 1.226944, 2.8694053, 1.4290555)
+backface_collision = true
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_05iol"]
+height = 1.5
+radius = 0.7470703
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_k3drs"]
+streams_count = 2
+stream_0/stream = ExtResource("4_h08kx")
+stream_1/stream = ExtResource("5_05iol")
+
+[node name="depositor" type="Node3D"]
+script = ExtResource("1_ciyll")
+
+[node name="depositor2" parent="." instance=ExtResource("2_fun74")]
+transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 0, 0, 0)
+
+[node name="cage" parent="depositor2" index="1"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape3D" parent="depositor2/cage" index="0"]
+shape = SubResource("ConcavePolygonShape3D_ciyll")
+
+[node name="depocol" parent="depositor2" index="2"]
+collision_layer = 10
+collision_mask = 10
+
+[node name="spawnpoint" type="Node3D" parent="depositor2"]
+transform = Transform3D(2.857143, 0, 0, 0, 2.857143, 0, 0, 0, 2.857143, 0, 2.5288358, 0.11657468)
+
+[node name="depo_area" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0018863678, 0, -1.4892669)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="depo_area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.71612954, 0.9439351)
+shape = SubResource("CylinderShape3D_05iol")
+
+[node name="icon" type="Sprite3D" parent="depo_area"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.0039186776, 0.4991005, 0.9112135)
+visible = false
+billboard = 1
+texture_filter = 0
+texture = ExtResource("3_h08kx")
+
+[node name="sfx" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5221228, 0)
+stream = SubResource("AudioStreamRandomizer_k3drs")
+volume_db = -12.0
+
+[connection signal="body_entered" from="depo_area" to="." method="_on_depo_area_body_entered"]
+[connection signal="body_exited" from="depo_area" to="." method="_on_depo_area_body_exited"]
+
+[editable path="depositor2"]

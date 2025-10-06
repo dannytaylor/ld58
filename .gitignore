@@ -6,3 +6,11 @@ export_presets.cfg
 
 # Mono-specific ignores
 .mono/
+
+release/
+
+project/shared/honeyblot_caps.ttf
+
+project/shared/honeyblot_caps.ttf.import
+
+project/shared/server.cfg

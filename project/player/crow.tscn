@@ -1,0 +1,202 @@
+[gd_scene load_steps=28 format=3 uid="uid://v6q36hstg3d8"]
+
+[ext_resource type="Script" uid="uid://b78cgoc5p748t" path="res://player/crow.gd" id="1_7v3a5"]
+[ext_resource type="PackedScene" uid="uid://tqt2yjipghil" path="res://player/crow.glb" id="2_nkqc6"]
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_7v3a5"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wpbeh"]
+animation = &"flap"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0v2il"]
+animation = &"glide"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nkqc6"]
+animation = &"hop"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_miwmu"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5iq56"]
+animation = &"hop"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_1h1hi"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_miwmu")
+blend_point_0/pos = 0.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_5iq56")
+blend_point_1/pos = 1.0
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7v3a5"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3v3kk"]
+animation = &"land"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_p3knt"]
+animation = &"takeoff"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nkqc6"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_i10m4"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1no31"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_284o5"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_nkqc6"]
+states/End/position = Vector2(795, 98)
+states/Start/position = Vector2(240, 92)
+states/flap/node = SubResource("AnimationNodeAnimation_wpbeh")
+states/flap/position = Vector2(680, 328)
+states/glide/node = SubResource("AnimationNodeAnimation_0v2il")
+states/glide/position = Vector2(680, 230)
+states/hop/node = SubResource("AnimationNodeAnimation_nkqc6")
+states/hop/position = Vector2(414, 230)
+states/idle/node = SubResource("AnimationNodeAnimation_7v3a5")
+states/idle/position = Vector2(414, 92)
+states/idle-hop/node = SubResource("AnimationNodeBlendSpace1D_1h1hi")
+states/idle-hop/position = Vector2(204, 182)
+states/land/node = SubResource("AnimationNodeAnimation_3v3kk")
+states/land/position = Vector2(680, 155)
+states/takeoff/node = SubResource("AnimationNodeAnimation_p3knt")
+states/takeoff/position = Vector2(557, 230)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_nkqc6"), "takeoff", "glide", SubResource("AnimationNodeStateMachineTransition_i10m4"), "land", "idle", SubResource("AnimationNodeStateMachineTransition_1no31"), "flap", "glide", SubResource("AnimationNodeStateMachineTransition_284o5")]
+graph_offset = Vector2(-340, -30)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_284o5"]
+animation = &"tilt_r"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_e4e1c"]
+animation = &"tilt_l"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_wpbeh"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_284o5")
+blend_point_0/pos = 1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_e4e1c")
+blend_point_1/pos = -1.0
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_nkqc6"]
+filter_enabled = true
+filters = ["", "Armature", "Armature/Skeleton3D:beak.lower", "Armature/Skeleton3D:beak.upper", "Armature/Skeleton3D:butt", "Armature/Skeleton3D:eye.l", "Armature/Skeleton3D:eye.r", "Armature/Skeleton3D:feather1.l", "Armature/Skeleton3D:feather1.r", "Armature/Skeleton3D:feather2.l", "Armature/Skeleton3D:feather2.r", "Armature/Skeleton3D:feather3.l", "Armature/Skeleton3D:feather3.r", "Armature/Skeleton3D:head_2", "Armature/Skeleton3D:leg1.l", "Armature/Skeleton3D:leg1.r", "Armature/Skeleton3D:leg2.l", "Armature/Skeleton3D:leg2.r", "Armature/Skeleton3D:neck", "Armature/Skeleton3D:root", "Armature/Skeleton3D:tail2", "Armature/Skeleton3D:target", "Armature/Skeleton3D:torso_2", "Armature/Skeleton3D:wing1.l", "Armature/Skeleton3D:wing1.r", "Armature/Skeleton3D:wing2.l", "Armature/Skeleton3D:wing2.r", "Armature/Skeleton3D:wing3.l", "Armature/Skeleton3D:wing3.r"]
+fadein_time = 0.2
+fadeout_time = 0.2
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1no31"]
+animation = &"caw"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_284o5"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i10m4"]
+animation = &"hop"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_nkqc6"]
+filter_enabled = true
+filters = ["Armature/Skeleton3D:beak.lower", "Armature/Skeleton3D:beak.upper"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1h1hi"]
+animation = &"open"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_7v3a5"]
+graph_offset = Vector2(-356.01462, -143.42279)
+nodes/output/position = Vector2(1480, 120)
+nodes/Add2/node = SubResource("AnimationNodeAdd2_7v3a5")
+nodes/Add2/position = Vector2(-100, 300)
+nodes/TiltAmount/node = SubResource("AnimationNodeBlendSpace1D_wpbeh")
+nodes/TiltAmount/position = Vector2(-320, 360)
+nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_nkqc6")
+nodes/StateMachine/position = Vector2(40, 20)
+nodes/hop/node = SubResource("AnimationNodeBlend2_284o5")
+nodes/hop/position = Vector2(440, 60)
+nodes/openanim/node = SubResource("AnimationNodeAnimation_1h1hi")
+nodes/openanim/position = Vector2(620, 380)
+nodes/open/node = SubResource("AnimationNodeBlend2_nkqc6")
+nodes/open/position = Vector2(820, 240)
+nodes/hopanim/node = SubResource("AnimationNodeAnimation_i10m4")
+nodes/hopanim/position = Vector2(80, 240)
+nodes/caw/node = SubResource("AnimationNodeOneShot_nkqc6")
+nodes/caw/position = Vector2(1260, 120)
+nodes/cawanim/node = SubResource("AnimationNodeAnimation_1no31")
+nodes/cawanim/position = Vector2(1060, 360)
+node_connections = [&"output", 0, &"caw", &"Add2", 1, &"TiltAmount", &"hop", 0, &"StateMachine", &"hop", 1, &"hopanim", &"open", 0, &"hop", &"open", 1, &"openanim", &"caw", 0, &"open", &"caw", 1, &"cawanim"]
+
+[node name="crow" type="Node3D"]
+transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 0, 0, 0)
+script = ExtResource("1_7v3a5")
+
+[node name="crow" parent="." instance=ExtResource("2_nkqc6")]
+
+[node name="hat-cowboy" parent="crow/Armature/Skeleton3D" index="2"]
+visible = false
+
+[node name="hat-earrings" parent="crow/Armature/Skeleton3D" index="3"]
+visible = false
+
+[node name="hat-glasses" parent="crow/Armature/Skeleton3D" index="4"]
+visible = false
+
+[node name="hat-shindigs" parent="crow/Armature/Skeleton3D" index="5"]
+visible = false
+
+[node name="lookat_head" type="LookAtModifier3D" parent="crow/Armature/Skeleton3D" index="8"]
+transform = Transform3D(0.99999964, 0, 0, 0, 0.9999998, 0, 0, 0, 0.99999964, 0, 0, 1.6319226)
+influence = 0.8
+target_node = NodePath("../../../../head_target")
+bone_name = "head_2"
+bone = 22
+forward_axis = 2
+primary_rotation_axis = 2
+duration = 0.3
+transition_type = 4
+ease_type = 2
+
+[node name="lookat_y" type="LookAtModifier3D" parent="crow/Armature/Skeleton3D" index="9"]
+transform = Transform3D(0.99999964, 0, 0, 0, 0.9999998, 0, 0, 0, 0.99999964, 0, 0, 0)
+influence = 0.4
+target_node = NodePath("../../../../y_target")
+bone_name = "head_2"
+bone = 22
+forward_axis = 2
+primary_rotation_axis = 0
+use_secondary_rotation = false
+duration = 0.6
+transition_type = 4
+ease_type = 2
+
+[node name="beak_bone" type="ModifierBoneTarget3D" parent="crow/Armature/Skeleton3D" index="10"]
+transform = Transform3D(0.9971926, 0.074871324, -0.00089177385, 7.743578e-05, -0.012941094, -0.9999164, -0.07487658, 0.9971093, -0.012910503, 0.0013056113, 1.0701938, 0.04878267)
+bone_name = "beak.lower"
+bone = 24
+
+[node name="trinket_target" type="Marker3D" parent="crow/Armature/Skeleton3D/beak_bone"]
+transform = Transform3D(1, 0, 0, 0, 0.17364822, 0.9848077, 0, -0.9848077, 0.17364822, 0, 0.7, -0.04)
+
+[node name="AnimationPlayer" parent="crow" index="1"]
+autoplay = "idle"
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+root_node = NodePath("../crow")
+tree_root = SubResource("AnimationNodeBlendTree_7v3a5")
+anim_player = NodePath("../crow/AnimationPlayer")
+parameters/Add2/add_amount = 0.0
+parameters/TiltAmount/blend_position = -0.0030303001
+parameters/StateMachine/idle-hop/blend_position = -0.12828285
+parameters/hop/blend_amount = 0.0
+parameters/open/blend_amount = 0.0
+parameters/caw/active = false
+parameters/caw/internal_active = false
+parameters/caw/request = 0
+
+[node name="y_target" type="Marker3D" parent="."]
+transform = Transform3D(0.9934727, 0.11407022, 0, -0.11407022, 0.9934727, 0, 0, 0, 1, 0.37, 1, 2.433)
+
+[node name="head_target" type="Marker3D" parent="."]
+transform = Transform3D(0.9934727, 0.11407022, 0, -0.11407022, 0.9934727, 0, 0, 0, 1, 0.37005052, 0.99840134, 2.432765)
+
+[editable path="crow"]

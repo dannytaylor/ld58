@@ -1,0 +1,72 @@
+[gd_scene load_steps=7 format=3 uid="uid://bg33m0md87wr7"]
+
+[ext_resource type="PackedScene" uid="uid://c0rxcme80oml5" path="res://level/birdhouse/birdhouse.glb" id="1_hmasm"]
+[ext_resource type="Script" uid="uid://cbxorweulb33g" path="res://level/birdhouse/birdhouse.gd" id="1_xyox4"]
+[ext_resource type="Texture2D" uid="uid://cm6c33wga1t3" path="res://shared/keyboard_e.png" id="3_w6jp1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_w6jp1"]
+size = Vector3(3.1976929, 3.7073975, 3.4580994)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1uu5g"]
+size = Vector3(2.71344, 1, 3.6645508)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xyox4"]
+size = Vector3(1, 1, 0.68310547)
+
+[node name="birdhouse" type="Node3D" groups=["birdhouse"]]
+script = ExtResource("1_xyox4")
+
+[node name="birdhouse" parent="." instance=ExtResource("1_hmasm")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+
+[node name="col2" parent="birdhouse" index="1"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape3D" parent="birdhouse/col2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00039674342, 1.7366064, 0.3207855)
+shape = SubResource("BoxShape3D_w6jp1")
+
+[node name="col1" parent="birdhouse" index="2"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape3D" parent="birdhouse/col1" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.9446916, -0.32795995, 0, 0.32795995, 0.9446916, 0.06625369, 0, 1.9958172)
+shape = SubResource("BoxShape3D_1uu5g")
+
+[node name="player_lookat" type="LookAtModifier3D" parent="birdhouse/eyebone/Skeleton3D" index="1"]
+target_node = NodePath("../../../../market_test")
+bone_name = "Bone"
+bone = 0
+forward_axis = 2
+primary_rotation_axis = 0
+duration = 0.2
+use_angle_limitation = true
+symmetry_limitation = true
+primary_limit_angle = 1.5707964
+primary_damp_threshold = 1.0
+secondary_limit_angle = 2.3561945
+secondary_damp_threshold = 1.0
+
+[node name="market_test" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7050297, 4.556998)
+
+[node name="buy_area" type="Area3D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="buy_area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.47722328, 1.0018885)
+shape = SubResource("BoxShape3D_xyox4")
+
+[node name="icon" type="Sprite3D" parent="buy_area"]
+transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 0, 0.49160773, 0.85864514)
+visible = false
+billboard = 1
+texture = ExtResource("3_w6jp1")
+
+[connection signal="body_entered" from="buy_area" to="." method="_on_buy_area_body_entered"]
+[connection signal="body_exited" from="buy_area" to="." method="_on_buy_area_body_exited"]
+
+[editable path="birdhouse"]
