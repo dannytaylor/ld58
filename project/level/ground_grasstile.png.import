@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c375bs0vro1l8"
 path.s3tc="res://.godot/imported/ground_grasstile.png-a1f8dc0e33a0e60df1d1fa98d9d92d51.s3tc.ctex"
+path.etc2="res://.godot/imported/ground_grasstile.png-a1f8dc0e33a0e60df1d1fa98d9d92d51.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://level/ground_grasstile.png"
-dest_files=["res://.godot/imported/ground_grasstile.png-a1f8dc0e33a0e60df1d1fa98d9d92d51.s3tc.ctex"]
+dest_files=["res://.godot/imported/ground_grasstile.png-a1f8dc0e33a0e60df1d1fa98d9d92d51.s3tc.ctex", "res://.godot/imported/ground_grasstile.png-a1f8dc0e33a0e60df1d1fa98d9d92d51.etc2.ctex"]
 
 [params]
 

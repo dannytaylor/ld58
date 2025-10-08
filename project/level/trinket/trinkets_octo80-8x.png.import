@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cvi5l47n3y66y"
 path.s3tc="res://.godot/imported/trinkets_octo80-8x.png-feb20c46f118f19b3f22cc080a158c84.s3tc.ctex"
+path.etc2="res://.godot/imported/trinkets_octo80-8x.png-feb20c46f118f19b3f22cc080a158c84.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://level/trinket/trinkets_octo80-8x.png"
-dest_files=["res://.godot/imported/trinkets_octo80-8x.png-feb20c46f118f19b3f22cc080a158c84.s3tc.ctex"]
+dest_files=["res://.godot/imported/trinkets_octo80-8x.png-feb20c46f118f19b3f22cc080a158c84.s3tc.ctex", "res://.godot/imported/trinkets_octo80-8x.png-feb20c46f118f19b3f22cc080a158c84.etc2.ctex"]
 
 [params]
 

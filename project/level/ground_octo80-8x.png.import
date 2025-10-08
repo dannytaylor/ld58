@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dli880r5810gw"
 path.s3tc="res://.godot/imported/ground_octo80-8x.png-7f11559c8c2eb6fba461be172924d8cc.s3tc.ctex"
+path.etc2="res://.godot/imported/ground_octo80-8x.png-7f11559c8c2eb6fba461be172924d8cc.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://level/ground_octo80-8x.png"
-dest_files=["res://.godot/imported/ground_octo80-8x.png-7f11559c8c2eb6fba461be172924d8cc.s3tc.ctex"]
+dest_files=["res://.godot/imported/ground_octo80-8x.png-7f11559c8c2eb6fba461be172924d8cc.s3tc.ctex", "res://.godot/imported/ground_octo80-8x.png-7f11559c8c2eb6fba461be172924d8cc.etc2.ctex"]
 
 [params]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dt4nq0nkmjiit"]
+[gd_scene load_steps=24 format=3 uid="uid://dt4nq0nkmjiit"]
 
 [ext_resource type="Shader" uid="uid://ba6fqx1chlx8b" path="res://shared/sky.gdshader" id="1_0xm2m"]
 [ext_resource type="Shader" uid="uid://d2kv76p80esdx" path="res://shared/blur.gdshader" id="1_1bvp3"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://bkbl5av7cyjmq" path="res://level/clouds.gd" id="3_lquwl"]
 [ext_resource type="AudioStream" uid="uid://b2fnjcxm3jylu" path="res://sfx/nature-ambience-323729.ogg" id="6_7mycd"]
 [ext_resource type="FontFile" uid="uid://c33ccvkoxatm3" path="res://shared/honeyblot_caps.ttf" id="7_5vw27"]
+[ext_resource type="Script" uid="uid://bc2c05vrkvubb" path="res://shared/ambientdust.gd" id="7_kek77"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lquwl"]
 shader = ExtResource("1_1bvp3")
@@ -74,6 +75,41 @@ font = ExtResource("7_5vw27")
 font_size = 28
 font_color = Color(0.92256, 0.93, 0.9114, 0.2509804)
 
+[sub_resource type="Curve" id="Curve_272bh"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.51094896, 0.59550565), -0.06342763, -0.06342763, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_5vw27"]
+texture_mode = 1
+curve = SubResource("Curve_272bh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kek77"]
+emission_shape = 3
+emission_box_extents = Vector3(16, 8, 16)
+inherit_velocity_ratio = 0.1
+spread = 180.0
+initial_velocity_max = 0.099999994
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -0.020002235
+linear_accel_max = 0.019997764
+radial_accel_min = -0.020002235
+radial_accel_max = 0.019997764
+scale_min = 0.5
+alpha_curve = SubResource("CurveTexture_5vw27")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4c57u"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.6431373, 0.8666667, 0.85882354, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_efxa6"]
+material = SubResource("StandardMaterial3D_4c57u")
+radius = 0.04
+height = 0.08
+radial_segments = 12
+rings = 4
+
 [node name="root" type="Node3D"]
 script = ExtResource("1_272bh")
 
@@ -86,6 +122,7 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch = true
 stretch_shrink = 2
+metadata/_edit_lock_ = true
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
@@ -144,6 +181,15 @@ grow_vertical = 0
 text = "disconnected from rookery"
 label_settings = SubResource("LabelSettings_kek77")
 horizontal_alignment = 2
+
+[node name="ambientdust" type="GPUParticles3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16881448, 0)
+amount = 4096
+lifetime = 8.0
+randomness = 0.3
+process_material = SubResource("ParticleProcessMaterial_kek77")
+draw_pass_1 = SubResource("SphereMesh_efxa6")
+script = ExtResource("7_kek77")
 
 [node name="ambience" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_7mycd")

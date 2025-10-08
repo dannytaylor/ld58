@@ -13,10 +13,10 @@ var hop_blend = 0.0
 const MAXHEIGHT = 24.0
 
 @onready var money_label = $ui/money/money
-var money = 0
+var money = 15
 var holding_trinket = false # trinket in mouth
 var active_trinket = null
-var hats = []
+var active_hat = 0
 
 @onready var visual_root = $visual_root
 @onready var crow = $visual_root/crow
@@ -62,6 +62,8 @@ var init_state = false # for capturing mouse and other on client
 func _ready():
 	#await get_tree().process_frame
 	local_id = multiplayer.get_unique_id()
+	#rpc("sync_hat",active_hat) # POSTJAM
+	
 	if get_multiplayer_authority() == local_id:
 		
 		var birdhouses = get_tree().get_nodes_in_group("birdhouse")
@@ -361,6 +363,7 @@ func caw_emote():
 	
 @rpc("any_peer", "call_local", "reliable")
 func sync_hat(id):
+	#active_hat = 0 # POSTJAM
 	crow.toggle_hat(id)
 
 # sync data

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://daaio1w4lqb6w"
 path.s3tc="res://.godot/imported/mouse_left_outline.png-e2f46a4e27c628476bd941778bac2455.s3tc.ctex"
+path.etc2="res://.godot/imported/mouse_left_outline.png-e2f46a4e27c628476bd941778bac2455.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://shared/mouse_left_outline.png"
-dest_files=["res://.godot/imported/mouse_left_outline.png-e2f46a4e27c628476bd941778bac2455.s3tc.ctex"]
+dest_files=["res://.godot/imported/mouse_left_outline.png-e2f46a4e27c628476bd941778bac2455.s3tc.ctex", "res://.godot/imported/mouse_left_outline.png-e2f46a4e27c628476bd941778bac2455.etc2.ctex"]
 
 [params]
 
