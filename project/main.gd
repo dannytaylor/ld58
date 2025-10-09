@@ -39,7 +39,7 @@ func _ready():
 
 @rpc("call_remote")
 func update_debug_text(count):
-	network_debug.text = '(%s) crows connected to rookery' % str(count)
+	network_debug.text = '(%s)' % str(count)
 
 func _spawn_player(id: int):
 	var player := PLAYER.instantiate()

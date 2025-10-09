@@ -1,0 +1,66 @@
+[gd_scene load_steps=12 format=3 uid="uid://inju8acijebp"]
+
+[ext_resource type="PackedScene" uid="uid://d2iojsywli3dc" path="res://level/details/logs.glb" id="1_l8e3y"]
+
+[sub_resource type="Curve" id="Curve_3xsvu"]
+_data = [Vector2(0, 0.79200006), 0.0, 0.0, 0, 0, Vector2(0.106870234, 0.38640004), -1.2673489, -1.2673489, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_lvl8l"]
+curve = SubResource("Curve_3xsvu")
+
+[sub_resource type="Gradient" id="Gradient_gx74t"]
+offsets = PackedFloat32Array(0, 0.038135592, 0.076271184, 1)
+colors = PackedColorArray(1, 0.8093333, 0.48000002, 1, 0.83, 0.46715164, 0.32369998, 1, 0.7162962, 0.7162962, 0.7162962, 1, 0.2845331, 0.2711113, 0.26312178, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xuw8q"]
+gradient = SubResource("Gradient_gx74t")
+
+[sub_resource type="Curve" id="Curve_xw5hp"]
+_data = [Vector2(0, 0.08), 0.0, 0.0, 0, 0, Vector2(0.2, 0.4), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_hn7xf"]
+curve = SubResource("Curve_xw5hp")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_005s6"]
+direction = Vector3(0, 1, 0)
+spread = 10.0
+initial_velocity_min = 0.25
+initial_velocity_max = 0.5
+gravity = Vector3(0, 0.1, 0)
+scale_min = 2.0
+scale_max = 4.0
+scale_curve = SubResource("CurveTexture_hn7xf")
+color_ramp = SubResource("GradientTexture1D_xuw8q")
+alpha_curve = SubResource("CurveTexture_lvl8l")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a8x8w"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_4yi5f"]
+material = SubResource("StandardMaterial3D_a8x8w")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l8e3y"]
+size = Vector3(0.7593384, 0.4317627, 1)
+
+[node name="campfire" type="Node3D"]
+
+[node name="logs2" parent="." instance=ExtResource("1_l8e3y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.09580065, 0)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="logs2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.20528117, 0)
+amount = 128
+lifetime = 24.0
+preprocess = 8.0
+process_material = SubResource("ParticleProcessMaterial_005s6")
+draw_pass_1 = SubResource("SphereMesh_4yi5f")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="logs2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="logs2/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.028961182, 0.14459229, 0)
+shape = SubResource("BoxShape3D_l8e3y")

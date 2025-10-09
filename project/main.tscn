@@ -76,7 +76,7 @@ font_size = 28
 font_color = Color(0.92256, 0.93, 0.9114, 0.2509804)
 
 [sub_resource type="Curve" id="Curve_272bh"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.51094896, 0.59550565), -0.06342763, -0.06342763, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5038168, 0.36560005), -0.06342763, -0.06342763, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="CurveTexture" id="CurveTexture_5vw27"]
@@ -94,7 +94,7 @@ linear_accel_min = -0.020002235
 linear_accel_max = 0.019997764
 radial_accel_min = -0.020002235
 radial_accel_max = 0.019997764
-scale_min = 0.5
+scale_min = 0.35
 alpha_curve = SubResource("CurveTexture_5vw27")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4c57u"]

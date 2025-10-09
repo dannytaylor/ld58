@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cn8kgyfqxck1f"]
+
+[ext_resource type="Script" uid="uid://ctwllotq8vhvx" path="res://level/details/hoopgame.gd" id="1_omphg"]
+[ext_resource type="PackedScene" uid="uid://dkpxtpmxsk604" path="res://level/details/hoop.tscn" id="2_6o5qm"]
+
+[node name="hoopgame" type="Node3D" node_paths=PackedStringArray("hoops")]
+script = ExtResource("1_omphg")
+hoops = [NodePath("hoop1"), NodePath(""), NodePath(""), NodePath("")]
+
+[node name="resettimer" type="Timer" parent="."]
+wait_time = 4.0
+
+[node name="hoop1" parent="." instance=ExtResource("2_6o5qm")]
+
+[connection signal="timeout" from="resettimer" to="." method="_on_resettimer_timeout"]

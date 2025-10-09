@@ -15,7 +15,7 @@ bfxr
 
 ### assets and references:
 https://github.com/gtibo/Godot-Plush-Character  
-https://kenney.nl/assets/tag:interface  
+https://kenney.nl/assets  
 https://lospec.com/palette-list/octo80  
 https://stevencolling.itch.io/honeyblot-caps-font  
 https://github.com/twitter/twemoji/  
@@ -24,6 +24,7 @@ https://godotshaders.com/shader/n64-post-process-effect/
 https://godotshaders.com/shader/rounded-corners-simple/  
 https://godotshaders.com/shader/wind-waker-2d-water-shader-godot-4/#comment-1411  
 https://godotshaders.com/shader/simple-wind-sway/  
+https://opengameart.org/content/trance-dungeon  
 https://pixabay.com/sound-effects/coin-drop-393247/  
 https://pixabay.com/sound-effects/drop-coin-384921/  
 https://pixabay.com/sound-effects/jump-landing-30946/  

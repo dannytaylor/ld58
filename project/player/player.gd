@@ -13,7 +13,7 @@ var hop_blend = 0.0
 const MAXHEIGHT = 24.0
 
 @onready var money_label = $ui/money/money
-var money = 15
+var money = 0
 var holding_trinket = false # trinket in mouth
 var active_trinket = null
 var active_hat = 0
@@ -84,7 +84,10 @@ func _ready():
 		cam.current = false
 		movement_dust.visible = false
 		ui.visible = false
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		#Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE) # needed?
+		freeze = true
+		set_collision_layer_value(2,false)
+		set_collision_mask_value(1,false)
 		
 	#if multiplayer.is_server() and not(multiplayer.multiplayer_peer is OfflineMultiplayerPeer):
 		#hostlabel.visible = true
@@ -150,9 +153,14 @@ func _process(_delta):
 	
 	if env:
 		if _is_flying:
+			env.environment.fog_depth_begin = lerp (env.environment.fog_depth_begin,12.0,0.002)
 			env.environment.fog_depth_end = lerp (env.environment.fog_depth_end,64.0,0.002)
+			env.environment.fog_light_color = lerp (env.environment.fog_light_color,Color("#a4dddb"),0.001)
+			
 		else:
-			env.environment.fog_depth_end = lerp (env.environment.fog_depth_end,32.0,0.016)
+			env.environment.fog_depth_begin = lerp (env.environment.fog_depth_begin,8.0,0.014)
+			env.environment.fog_depth_end = lerp (env.environment.fog_depth_end,32.0,0.014) 
+			env.environment.fog_light_color = lerp (env.environment.fog_light_color,Color("#73bed3"),0.001)
 
 func _integrate_forces(state : PhysicsDirectBodyState3D):
 	if get_multiplayer_authority() != local_id: return
@@ -200,7 +208,7 @@ func _integrate_forces(state : PhysicsDirectBodyState3D):
 			takeoff()
 			
 			var direction = -visual_root.global_transform.basis.z  # forward direction
-			var result_vector = direction.normalized()*v_hop*0.5
+			var result_vector = direction.normalized()*v_hop*1.0
 			state.linear_velocity.x = -result_vector.x
 			state.linear_velocity.z = -result_vector.z
 			
